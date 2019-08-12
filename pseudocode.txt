@@ -1,0 +1,65 @@
+Public Class Login Class:
+ CONSTRUCTOR with:
+ private username and password Strings
+ public failedAttempts int = 0
+ private role String
+
+ private String hashingMethod(String pswd):
+ HASH pswd per 
+ CALL setPasswordMethod
+
+ private String setPasswordMethod(String hashedPswd):
+ SET password to hashedPswd
+
+ private boolean comparingMethod(String filePassword):
+ COMPARE filePassword with password
+ RETURN true if it is a match,false if not
+
+ private void setUserRoleMethod(String userRole):
+ SET role to userRole
+
+ public void displayMethod:
+ OPEN file for user role
+ OUTPUT file to user
+ PROMPT user for logout string
+ IF logout string entered
+  CLOSE fileReader 
+
+ private boolean loginAttemptMethod():
+ OPEN file with credentials
+ IF username is in credentials
+  CALL comparingMethod
+  IF password is valid
+    CHECK for role of user
+    CALL setUserRoleMethod
+    RETURN True
+ ELSE
+  RETURN False
+
+ public void userInfoMethod(): 
+ PROMPT user for username and password
+ SET username to user input
+ CALL hashing method
+ CALL loginAttemptMethod
+
+Private Class Main Class:
+ main method:
+ PROMPT user for "exit" string to exit
+ WHILE next input line is not "exit"
+  call loginMethod
+ END WHILE
+ EXIT program
+
+ private static void loginMethod: 
+ CREATE LoginClass instance
+ WHILE failedAttempts is less than 3
+  IF calling userInfoMethod returns True
+    CALL displayMethod
+    BREAK
+  ELSE
+    ADD 1 to failedAttempts
+ END WHILE
+ IF failedAttempts is 3 or greater
+   OUTPUT error message that user has failed too many attempts, exit program
+ ELSE 
+   EXIT program
