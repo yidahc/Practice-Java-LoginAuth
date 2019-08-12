@@ -12,7 +12,14 @@ public class LoginClass {
    veterinarian
   }
 
-  public void setRole(String line){
+  public boolean getRoleBoolean() {
+    if (this.role.length() > 0) {
+      return true;
+    }
+    return false;
+  }
+
+  private void setRole(String line){
        for(Roles enumValue : Roles.values()){
          if(line.endsWith(enumValue.toString())){
           this.role = enumValue.toString();
@@ -20,7 +27,7 @@ public class LoginClass {
        }
   }
 
-  private void showFile() {
+  public void logIn() {
     System.out.println("showing " + this.role + " file");
   }
 
@@ -32,7 +39,6 @@ public class LoginClass {
       String filePswd = data.substring(usernameLength, pswEnd);
       if (filePswd.equals(this.password)){
         this.setRole(data);
-        this.showFile();
       }     
     }
   }
